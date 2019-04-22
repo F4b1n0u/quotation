@@ -3,11 +3,13 @@ import { AppLoading } from 'expo'
 import PropTypes from 'prop-types'
 import styled from 'styled-components/native'
 import posed, { Transition } from 'react-native-pose'
+
 import Introduction from '#containers/introduction'
 import TodayQuote from '#containers/today-quote'
 
 import SlashScreen from '#components/splash'
 import Home from '#components/home'
+
 
 class App extends PureComponent {
   componentWillMount() {
@@ -84,6 +86,8 @@ const AnimatedHome = posed(Home)({
     },
   },
 })
+
+
 
 // Styled components
 

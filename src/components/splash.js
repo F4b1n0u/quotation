@@ -48,8 +48,6 @@ const SplashImage = styled.Image.attrs(() => ({
   resizeMode: 'contain',
 }))`
   width: 100%;
-  border-color: #f00;
-  border-width: 1;
 `
 
 export default Splash

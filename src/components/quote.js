@@ -6,7 +6,7 @@ import styled from 'styled-components/native'
 import RF from 'react-native-responsive-fontsize'
 import posed, { Transition } from 'react-native-pose'
 
-import { LINKS } from '../../env'
+import { SHARE_LINKS } from '../../env'
 
 class Quote extends PureComponent {
 
@@ -14,7 +14,7 @@ class Quote extends PureComponent {
     const {
       app: appLink,
       web: webLink,
-    } = LINKS[to]
+    } = SHARE_LINKS[to]
 
     Linking.openURL(appLink)
       .catch(() => {

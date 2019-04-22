@@ -10,7 +10,21 @@ export const FIREBASE_CONFIG = {
   messagingSenderId: '732051141901',
 }
 
-export const LINKS = {
+export const ABOUT_LINKS = {
+  instagram: {
+    app: 'fb://profile/2240842096170219',
+    web: 'https://www.facebook.com/pg/letsgetyourlifetogether/',
+  },
+  facebook: {
+    app: 'fb://profile/2240842096170219',
+    web: 'https://www.facebook.com/pg/letsgetyourlifetogether/',
+  },
+  email: {
+    app: 'mailto:support@expo.io',
+  },
+}
+
+export const SHARE_LINKS = {
   facebook: {
     app: 'fb://profile/2240842096170219',
     web: 'https://www.facebook.com/pg/letsgetyourlifetogether/',
