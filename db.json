@@ -1,0 +1,26 @@
+{
+  "feelings": [
+    "Depressed",
+    "Optimistic",
+    "Bored",
+    "Happy",
+    "Excited",
+    "Playful",
+    "Content",
+    "Interested",
+    "Proud",
+    "Anxious"
+  ],
+  "check-ins": [
+    {
+      "id": 1553507087988,
+      "timestamp": 1553507087988,
+      "mood": 5,
+      "feelings": [
+        "Interested",
+        "Excited"
+      ],
+      "comment": "Plop"
+    }
+  ]
+}
