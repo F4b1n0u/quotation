@@ -30,8 +30,8 @@ class About extends PureComponent {
           <Details>
             {'Juliet is a life coach in the making, helping others to be the nest YOU can be.'}
             {'\n'}
-            {'For more inspiring personal development material, contact Julier ans subscribe to her personal development blog:'}
             {'\n'}
+            {'For more inspiring personal development material, contact Juliet ans subscribe to her personal development blog:'}
             {'\n'}
             {'`Let\'s get your life together`'}
             {'\n'}
@@ -87,7 +87,9 @@ const Container = styled.View`
   background-color: ${({ theme: { about } }) => about};
 `
 
-const Wrapper = styled.View``
+const Wrapper = styled.View`
+  margin-horizontal: 20;
+`
 
 const Title = styled.Text`
   font-size: ${RF(4)};
@@ -95,6 +97,7 @@ const Title = styled.Text`
   text-align: center;
 
   font-family: 'chivo';
+  margin-bottom: 20;
 `
 
 const Details = styled.Text`
