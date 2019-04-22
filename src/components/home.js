@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { TouchableHighlight } from 'react-native'
+import { TouchableOpacity } from 'react-native'
 import PropTypes from 'prop-types'
 import styled from 'styled-components/native'
 import posed, { Transition } from 'react-native-pose'
@@ -31,13 +31,13 @@ class Home extends PureComponent {
 
     return (
       <Container style={style}>
-        <TouchableHighlight
+        <TouchableOpacity
           onPress={this._handleToggleAbout}
         >
           <StyledAnimatedLogo
             key="logo"
           />
-        </TouchableHighlight>
+        </TouchableOpacity>
 
         <StyledAnimatedContent
           key="content"
@@ -80,7 +80,7 @@ const AnimatedContent = posed.View({
 
 const AnimatedAbout = posed(About)({
   enter: {
-    top: 20,
+    top: 15,
     bottom: 0,
     transition: {
       duration: 1000,
@@ -130,6 +130,9 @@ const StyledAnimatedAbout = styled(AnimatedAbout)`
   bottom: 0;
   left: 0;
   right: 0;
+  margin-vertical: 10;
+  margin-horizontal: 10;
+  border-radius: 20;
 `
 
 export default Home 
