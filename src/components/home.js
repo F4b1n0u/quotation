@@ -178,9 +178,9 @@ const StyledAnimatedAbout = styled(AnimatedAbout)`
   bottom: 0;
   left: 0;
   right: 0;
-  margin-vertical: 10;
-  margin-horizontal: 10;
-  border-radius: 20;
+  
+  border-top-right-radius: 20;
+  border-top-left-radius: 20;
 `
 
 export default Home 

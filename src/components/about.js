@@ -5,16 +5,20 @@ import { EvilIcons, AntDesign, Entypo } from '@expo/vector-icons'
 import styled from 'styled-components/native'
 import RF from 'react-native-responsive-fontsize'
 
-import { ABOUT_LINKS } from '../../env'
+import {
+  ABOUT_LINKS,
+  ABOUT_WEBSITE,
+} from '../../env'
 
 class About extends PureComponent {
-  _handlePressSocialLink = async (to) => {
-    Linking
-      .openURL(ABOUT_LINKS[to].app)
-      .catch(() => {
-        Linking.openURL(ABOUT_LINKS[to].web)
-      })
-  }
+  _handlePressSocialLink = to => Linking
+    .openURL(ABOUT_LINKS[to].app)
+    .catch(() => {
+      Linking.openURL(ABOUT_LINKS[to].web)
+    })
+
+  _handlePressWebsite = () => Linking
+    .openURL(ABOUT_WEBSITE)
 
   render() {
     const {
@@ -27,16 +31,23 @@ class About extends PureComponent {
           <Title>
             {'About me'}
           </Title>
+
           <Details>
-            {'Juliet is a life coach in the making, helping others to be the nest YOU can be.'}
+            {'Juliet is a life coach in the making, helping others to be the best YOU can be.'}
             {'\n'}
             {'\n'}
-            {'For more inspiring personal development material, contact Juliet ans subscribe to her personal development blog:'}
-            {'\n'}
-            {'`Let\'s get your life together`'}
-            {'\n'}
-            {'below.'}
+            {'For more inspiring personal development material, contact Juliet ans subscribe to her personal development blog below:'}
           </Details>
+
+          <TouchableOpacity
+            onPress={this._handlePressWebsite}
+          >
+            <StyleButton>
+              <ButtonLabel>
+                {'Let\'s get your life together'}
+              </ButtonLabel>
+            </StyleButton>
+          </TouchableOpacity>
         </Wrapper>
         <SocialLinks
           animateOnMount={true}
@@ -78,7 +89,6 @@ About.propTypes = {
 // animated
 
 // styled
-
 const Container = styled.View`
   flex: 1;
   flex-direction: column;
@@ -88,7 +98,7 @@ const Container = styled.View`
 `
 
 const Wrapper = styled.View`
-  margin-horizontal: 20;
+  margin-horizontal: 40;
 `
 
 const Title = styled.Text`
@@ -102,9 +112,24 @@ const Title = styled.Text`
 
 const Details = styled.Text`
   font-size: ${RF(3)};
-  text-align: center;
+  text-align: justify;
   
   font-family: 'chivo';
+`
+
+const StyleButton = styled.View`
+  justify-content: center;
+  align-items: center;
+  padding-horizontal: 10;
+  padding-vertical: 10;
+  margin-top: 20;
+  background-color: ${({ theme: { button } }) => button};
+  border-radius: 5;
+`
+
+const ButtonLabel = styled.Text`
+  color: ${({ theme: { background } }) => background};
+  font-size: ${RF(3.5)};
 `
 
 const SocialLinks = styled.View`

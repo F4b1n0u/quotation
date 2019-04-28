@@ -24,6 +24,8 @@ export const ABOUT_LINKS = {
   },
 }
 
+export const ABOUT_WEBSITE = 'https://www.letsgetyourlifetogether.com'
+
 export const SHARE_LINKS = {
   facebook: {
     app: 'fb://profile/2240842096170219',
