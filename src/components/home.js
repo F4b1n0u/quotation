@@ -11,12 +11,37 @@ import { IMAGES } from '#utils/assets'
 class Home extends PureComponent {
   state = {
     isShowingAbout: false,
+    isGettingAttention: false,
   }
 
   _handleToggleAbout = () => {
     this.setState(({ isShowingAbout }) => ({
       isShowingAbout: !isShowingAbout,
     }))
+  }
+
+  componentDidMount() {
+    const interval = 5000
+    const attentionDuration = 1000
+
+    this._attentionInterval = setInterval(
+      () => {
+        this.setState({
+          isGettingAttention: true,
+        })
+        this._attentionStop = setTimeout(() => {
+          this.setState({
+            isGettingAttention: false,
+          })
+        }, attentionDuration);
+      },
+      interval,
+    )
+  }
+
+  componentWillUnmount() {
+    clearInterval(this._attentionInterval)
+    clearTimeout(this._attentionStop)
   }
 
   render() {
@@ -27,6 +52,7 @@ class Home extends PureComponent {
 
     const {
       isShowingAbout,
+      isGettingAttention,
     } = this.state
 
     return (
@@ -36,6 +62,11 @@ class Home extends PureComponent {
         >
           <StyledAnimatedLogo
             key="logo"
+            pose={
+              isGettingAttention
+                ? 'attention'
+                : 'normal'
+            }
           />
         </TouchableOpacity>
 
@@ -66,6 +97,23 @@ Home.propTypes = {
 }
 
 // animated
+const AnimatedLogo = posed.Image({
+  attention: {
+    scale: 1.1,
+    transition: {
+      type: 'spring',
+      stiffness: 300,
+      damping: 1,
+    },
+  },
+  normal: {
+    scale: 1,
+    transition: {
+      type: 'spring',
+    }
+  }
+})
+
 const AnimatedContent = posed.View({
   enter: {
     opacity: 1,
@@ -109,7 +157,7 @@ const Container = styled.SafeAreaView`
   background-color: ${({ theme: { background } }) => background};
 `
 
-const StyledAnimatedLogo = styled.Image.attrs(() => ({
+const StyledAnimatedLogo = styled(AnimatedLogo).attrs(() => ({
   source: IMAGES.logo,
   resizeMode: 'contain',
 }))`
