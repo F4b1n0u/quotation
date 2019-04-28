@@ -12,9 +12,9 @@ const Introduction = ({
 }) => (
   <Container style={style}>
     <Welcome>
-      {'Welcome to the “Quotation” App!'}
+      {'Welcome to “Quotation”!'}
       {'\n\n'}
-      {'Each day at midnight, a new inspirational quote will appear!'}
+      {'Each day from midnight, a new inspirational quote will appear!'}
       {'\n\n'}
       {'Click on the target in the top left hand corner to learn more about me.'}
       {'\n\n'}
