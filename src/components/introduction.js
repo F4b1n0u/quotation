@@ -14,11 +14,11 @@ const Introduction = ({
     <Welcome>
       {'Welcome to the “Quotation” App!'}
       {'\n\n'}
-      {'Each day at midnight, a new inspirational quote will appear. Swipe up to see who said it and read a little more about it!'}
+      {'Each day at midnight, a new inspirational quote will appear!'}
       {'\n\n'}
       {'Click on the target in the top left hand corner to learn more about me.'}
       {'\n\n'}
-      {'Please share any quotes you like by clicking the buttons below!'}
+      {'Please share any quotes you like by pressing the buttons below your favorite quote!'}
     </Welcome>
     <TouchableOpacity
       onPress={finishIntroduction}
