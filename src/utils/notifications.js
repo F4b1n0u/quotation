@@ -19,14 +19,24 @@ export const manage = async () => {
   
   let notificationId = await getNotificationId()
 
-  if (!notificationId && willShow) {
+  if (willShow) {
+    if (notificationId) {
+      // to avoid the today notification
+      await Notifications.cancelScheduledNotificationAsync(notificationId)
+    }
+
     notificationId = await Notifications.scheduleLocalNotificationAsync(
       {
-        title: 'test',
-        body: 'test',
+        title: 'a new quote is awaiting',
+        body: 'Open Quotation what quote we have for you today!',
       },
       {
-        time: moment().startOf('day').hour(7).valueOf(),
+        time: moment()
+          .startOf('day')
+          .hour(7)
+          // starts tomorrow
+          .add(1, 'days')
+          .valueOf(),
         repeat: 'minute',
       },
     )
