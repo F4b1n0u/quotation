@@ -37,7 +37,7 @@ export const manage = async () => {
           // starts tomorrow
           .add(1, 'days')
           .valueOf(),
-        repeat: 'minute',
+        repeat: 'day',
       },
     )
     await saveNotificationId(notificationId)
