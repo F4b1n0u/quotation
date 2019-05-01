@@ -14,7 +14,6 @@ class Splash extends PureComponent {
   render() {
     const {
       style,
-      isOpen,
     } = this.props
 
     return (
@@ -29,7 +28,6 @@ class Splash extends PureComponent {
 
 Splash.defaultProps = {
   isIntroduced: false,
-  isOpen: false,
 }
 
 Splash.propTypes = {
@@ -37,16 +35,18 @@ Splash.propTypes = {
   isOpen: PropTypes.bool,
 }
 
-const Container = styled.SafeAreaView`
+const Container = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: center;
+
 `
 
 const SplashImage = styled.Image.attrs(() => ({
   source: IMAGES.splash,
   resizeMode: 'contain',
 }))`
+  height: 100%;
   width: 100%;
 `
 

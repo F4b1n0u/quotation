@@ -128,7 +128,7 @@ const AnimatedContent = posed.View({
 
 const AnimatedAbout = posed(About)({
   enter: {
-    top: 15,
+    top: 17,
     bottom: 0,
     transition: {
       duration: 1000,

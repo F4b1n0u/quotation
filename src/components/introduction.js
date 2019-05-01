@@ -46,7 +46,6 @@ Introduction.propTypes = {
 }
 
 // animated
-
 const AnimatedButton = posed.View({
   enter: {
     opacity: 1,

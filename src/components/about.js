@@ -97,7 +97,7 @@ const Container = styled.View`
 `
 
 const Wrapper = styled.View`
-  margin-horizontal: 40;
+  margin-horizontal: 10%;
 `
 
 const Title = styled.Text`
