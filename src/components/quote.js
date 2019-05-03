@@ -103,13 +103,11 @@ Quote.propTypes = {
 
 const AnimatedSocialLinks = posed.View({
   enter: {
-    bottom: 30,
+    
     staggerChildren: 100,
     delayChildren: 4000,
   },
-  exit: {
-    bottom: -200,
-  }
+  exit: {}
 })
 
 const AnimatedLink = posed.View({
@@ -127,7 +125,7 @@ const AnimatedLink = posed.View({
 
 // styled
 
-const Container = styled.SafeAreaView`
+const Container = styled.View`
   flex: 1;
   flex-direction: column;
   align-items: center;
@@ -163,6 +161,7 @@ const SocialLinks = styled(AnimatedSocialLinks)`
   justify-content: space-around;
   align-items: center;
   width: 100%;
+  bottom: 0;
 `
 
 const Link = styled(AnimatedLink)`

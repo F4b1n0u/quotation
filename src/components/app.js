@@ -90,8 +90,7 @@ const AnimatedHome = posed(Home)({
 
 
 // Styled components
-
-const Container = styled.SafeAreaView`
+const Container = styled.View`
   flex: 1;
   flex-direction: column;
   align-items: center;

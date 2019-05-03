@@ -149,7 +149,6 @@ const AnimatedAbout = posed(About)({
 
 // STYLED
 const Container = styled.SafeAreaView`
-  position: absolute;
   flex: 1;
   flex-direction: column;
   justify-content: center;

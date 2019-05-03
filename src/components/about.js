@@ -37,17 +37,18 @@ class About extends PureComponent {
             {'\n'}
             {'For more inspiring personal development material, contact Juliet ans subscribe to her personal development blog below:'}
           </Details>
-
-          <TouchableOpacity
-            onPress={this._handlePressWebsite}
-          >
-            <StyleButton>
-              <ButtonLabel>
-                {'Let\'s get your life together'}
-              </ButtonLabel>
-            </StyleButton>
-          </TouchableOpacity>
         </Wrapper>
+
+        <TouchableOpacity
+          onPress={this._handlePressWebsite}
+        >
+          <StyleButton>
+            <ButtonLabel>
+              {'Let\'s get your life together'}
+            </ButtonLabel>
+          </StyleButton>
+        </TouchableOpacity>
+        
         <SocialLinks
           animateOnMount={true}
           key='social-links'
@@ -129,6 +130,7 @@ const StyleButton = styled.View`
 const ButtonLabel = styled.Text`
   color: ${({ theme: { background } }) => background};
   font-size: ${RF(3.5)};
+  text-align: center;
 `
 
 const SocialLinks = styled.View`
