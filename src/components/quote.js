@@ -1,10 +1,11 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { Linking, TouchableOpacity } from 'react-native'
+import { Linking, TouchableOpacity, MaskedViewIOS } from 'react-native'
 import { EvilIcons, AntDesign } from '@expo/vector-icons'
 import styled from 'styled-components/native'
 import RF from 'react-native-responsive-fontsize'
 import posed, { Transition } from 'react-native-pose'
+import { LinearGradient } from 'expo';
 
 import { SHARE_LINKS } from '../../env'
 
@@ -40,26 +41,53 @@ class Quote extends PureComponent {
       },
     } = this.props
 
+    const DetailCurtain = StyledAnimatedCurtain(4000)
+    const DetailCurtainBorder = StyledAnimatedCurtain(4000)
+
+    const AuthorCurtain = StyledAnimatedCurtain(6000)
+    const AuthorCurtainBorder = StyledAnimatedCurtain(6000)
+
     return (
       <Container style={style}>
+        <MaskedViewIOS
+          maskElement={(
+            <CurtainWrapper>
+              <DetailCurtain />
+              <DetailCurtainBorder />
+            </CurtainWrapper>
+          )}
+        >
+          <QuoteWrapper>
+            <Details
+              format={format}
+            >
+              {details}
+            </Details>
+          </QuoteWrapper>
+        </MaskedViewIOS>
 
-        <QuoteWrapper>
-          <Details
-            format={format}
-          >
-            {details}
-          </Details>
-          <Author
-            format={format}
-          >
-            {author}
-          </Author>
-        </QuoteWrapper>
+        <MaskedViewIOS
+          maskElement={(
+            <CurtainWrapper>
+              <AuthorCurtain />
+              <AuthorCurtainBorder />
+            </CurtainWrapper>
+          )}
+        >
+          <QuoteWrapper>
+            <StyledAuthor
+              format={format}
+            >
+              {author}
+            </StyledAuthor>  
+          </QuoteWrapper>
+        </MaskedViewIOS>
+
 
         <Transition
           animateOnMount={true}
         >
-          <SocialLinks
+          <StyledAnimatedSocialLinks
             animateOnMount={true}
             key='social-links'
           >
@@ -84,7 +112,7 @@ class Quote extends PureComponent {
                 <TwitterIcon />
               </TweeterLink>
             </TouchableOpacity>
-          </SocialLinks>
+          </StyledAnimatedSocialLinks>
         </Transition>
       </Container>
     )
@@ -101,11 +129,36 @@ Quote.propTypes = {
 
 // animated
 
+const AnimatedCurtain = delay => posed.View({
+  enter: {
+    width: 500,
+    transition: {
+      delay,
+      duration: 5000,
+    },
+  },
+  exit: {
+    width: 0,
+  }
+})
+
+const AnimatedCurtainBorder = delay => posed(LinearGradient)({
+  enter: {
+    width: 30,
+    transition: {
+      delay: delay - 100,
+      duration: 100,
+    },
+  },
+  exit: {
+    width: 0,
+  }
+})
+
 const AnimatedSocialLinks = posed.View({
   enter: {
-    
     staggerChildren: 100,
-    delayChildren: 4000,
+    delayChildren: 7000,
   },
   exit: {}
 })
@@ -124,7 +177,6 @@ const AnimatedLink = posed.View({
 })
 
 // styled
-
 const Container = styled.View`
   flex: 1;
   flex-direction: column;
@@ -149,13 +201,30 @@ const Details = styled(StyledText)`
   letter-spacing: ${({ format }) => (format && format.letterSpacing || 5)};
 `
 
-const Author = styled(StyledText)`
+const StyledAuthor = styled.Text`
   margin-top: 40;
   font-size: ${({ format }) => RF(3.5 * (format && format.scale || 1))};
   font-family: 'chivo';
 `
 
-const SocialLinks = styled(AnimatedSocialLinks)`
+const CurtainWrapper = styled.View`
+  width: 100%;
+  height: 100%;
+  flex-direction: row;
+`
+
+const StyledAnimatedCurtain = delay => styled(AnimatedCurtain(delay))`
+  background-color: #000000ff;
+`
+
+const StyledAnimatedCurtainBorder = delay => styled(AnimatedCurtainBorder(delay)).attrs(() => ({
+  colors: ['#000000ff', '#00000000'],
+  start: [0, 0],
+  end: [1, 0],
+}))`
+`
+
+const StyledAnimatedSocialLinks = styled(AnimatedSocialLinks)`
   position: absolute;
   flex-direction: row;
   justify-content: space-around;
