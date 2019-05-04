@@ -7,47 +7,47 @@ const FALLBACK_QUOTES = [
   {
     date: todayQuoteDate,
     author: 'Anthony Robbins',
-    details: 'fallback',
+    details: 'The most important opinion a person will ever hold is the one that they hold about themselves',
   },
   {
     date: todayQuoteDate,
     author: 'Viktor FranklRobbins',
-    details: 'fallback',
+    details: 'The most important opinion a person will ever hold is the one that they hold about themselves',
   },
   {
     date: todayQuoteDate,
     author: 'Anthony Robbins',
-    details: 'fallback',
+    details: 'The most important opinion a person will ever hold is the one that they hold about themselves',
   },
   {
     date: todayQuoteDate,
     author: 'Mae AzangoRobbins',
-    details: 'fallback',
+    details: 'The most important opinion a person will ever hold is the one that they hold about themselves',
   },
   {
     date: todayQuoteDate,
     author: 'Aleksandr Solzhenitsyn Robbins',
-    details: 'fallback',
+    details: 'The most important opinion a person will ever hold is the one that they hold about themselves',
   },
   {
     date: todayQuoteDate,
     author: 'Les BrownRobbins',
-    details: 'fallback',
+    details: 'The most important opinion a person will ever hold is the one that they hold about themselves',
   },
   {
     date: todayQuoteDate,
     author: 'The BeatlesRobbins',
-    details: 'fallback',
+    details: 'The most important opinion a person will ever hold is the one that they hold about themselves',
   },
   {
     date: todayQuoteDate,
     author: 'Lots of peopleRobbins',
-    details: 'fallback',
+    details: 'The most important opinion a person will ever hold is the one that they hold about themselves',
   },
   {
     date: todayQuoteDate,
     author: 'Anthony Robbins',
-    details: 'fallback',
+    details: 'The most important opinion a person will ever hold is the one that they hold about themselves',
   }
 ]
 
