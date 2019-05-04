@@ -1,16 +1,16 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { Linking, TouchableOpacity, MaskedViewIOS } from 'react-native'
+import { Linking, TouchableOpacity } from 'react-native'
 import { EvilIcons, AntDesign } from '@expo/vector-icons'
 import styled from 'styled-components/native'
 import RF from 'react-native-responsive-fontsize'
 import posed, { Transition } from 'react-native-pose'
-import { LinearGradient } from 'expo';
+
+import Curtain from '#components/curtain'
 
 import { SHARE_LINKS } from '../../env'
 
 class Quote extends PureComponent {
-
   _handlePressSocialLink = async (to) => {
     const {
       app: appLink,
@@ -41,53 +41,39 @@ class Quote extends PureComponent {
       },
     } = this.props
 
-    const DetailCurtain = StyledAnimatedCurtain(4000)
-    const DetailCurtainBorder = StyledAnimatedCurtain(4000)
 
-    const AuthorCurtain = StyledAnimatedCurtain(6000)
-    const AuthorCurtainBorder = StyledAnimatedCurtain(6000)
+    const delayDetails = 4000
+    const timeToRead = details.length * 40
+    const timeToReadAuthor = 1500
+
+    const SocialLinks = StyledAnimatedSocialLinks(delayDetails + timeToRead + timeToReadAuthor)
 
     return (
       <Container style={style}>
-        <MaskedViewIOS
-          maskElement={(
-            <CurtainWrapper>
-              <DetailCurtain />
-              <DetailCurtainBorder />
-            </CurtainWrapper>
-          )}
+        <Curtain
+          delay={delayDetails}
         >
-          <QuoteWrapper>
-            <Details
-              format={format}
-            >
-              {details}
-            </Details>
-          </QuoteWrapper>
-        </MaskedViewIOS>
+          <Details
+            format={format}
+          >
+            {details}
+          </Details>
+        </Curtain>
 
-        <MaskedViewIOS
-          maskElement={(
-            <CurtainWrapper>
-              <AuthorCurtain />
-              <AuthorCurtainBorder />
-            </CurtainWrapper>
-          )}
+        <Curtain
+          delay={delayDetails + timeToRead}
         >
-          <QuoteWrapper>
-            <StyledAuthor
-              format={format}
-            >
-              {author}
-            </StyledAuthor>  
-          </QuoteWrapper>
-        </MaskedViewIOS>
-
+          <StyledAuthor
+            format={format}
+          >
+            {author}
+          </StyledAuthor>
+        </Curtain>
 
         <Transition
           animateOnMount={true}
         >
-          <StyledAnimatedSocialLinks
+          <SocialLinks
             animateOnMount={true}
             key='social-links'
           >
@@ -112,7 +98,7 @@ class Quote extends PureComponent {
                 <TwitterIcon />
               </TweeterLink>
             </TouchableOpacity>
-          </StyledAnimatedSocialLinks>
+          </SocialLinks>
         </Transition>
       </Container>
     )
@@ -129,36 +115,10 @@ Quote.propTypes = {
 
 // animated
 
-const AnimatedCurtain = delay => posed.View({
-  enter: {
-    width: 500,
-    transition: {
-      delay,
-      duration: 5000,
-    },
-  },
-  exit: {
-    width: 0,
-  }
-})
-
-const AnimatedCurtainBorder = delay => posed(LinearGradient)({
-  enter: {
-    width: 30,
-    transition: {
-      delay: delay - 100,
-      duration: 100,
-    },
-  },
-  exit: {
-    width: 0,
-  }
-})
-
-const AnimatedSocialLinks = posed.View({
+const AnimatedSocialLinks = delay => posed.View({
   enter: {
     staggerChildren: 100,
-    delayChildren: 7000,
+    delayChildren: delay,
   },
   exit: {}
 })
@@ -184,10 +144,6 @@ const Container = styled.View`
   justify-content: center;
 `
 
-const QuoteWrapper = styled.View`
-  margin-bottom: 20%;
-`
-
 const StyledText = styled.Text`
   color: ${({ theme: { text } }) => text};
   text-align: center;
@@ -205,32 +161,16 @@ const StyledAuthor = styled.Text`
   margin-top: 40;
   font-size: ${({ format }) => RF(3.5 * (format && format.scale || 1))};
   font-family: 'chivo';
+  height: ${({ format }) => RF(3.5 * (format && format.scale || 1)) * 1.5};
 `
 
-const CurtainWrapper = styled.View`
-  width: 100%;
-  height: 100%;
-  flex-direction: row;
-`
-
-const StyledAnimatedCurtain = delay => styled(AnimatedCurtain(delay))`
-  background-color: #000000ff;
-`
-
-const StyledAnimatedCurtainBorder = delay => styled(AnimatedCurtainBorder(delay)).attrs(() => ({
-  colors: ['#000000ff', '#00000000'],
-  start: [0, 0],
-  end: [1, 0],
-}))`
-`
-
-const StyledAnimatedSocialLinks = styled(AnimatedSocialLinks)`
+const StyledAnimatedSocialLinks = delay => styled(AnimatedSocialLinks(delay))`
   position: absolute;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
   width: 100%;
-  bottom: 0;
+  bottom: 20;
 `
 
 const Link = styled(AnimatedLink)`
