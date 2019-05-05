@@ -1,17 +1,14 @@
 import React, { PureComponent } from 'react'
-import { TouchableOpacity } from 'react-native'
 import PropTypes from 'prop-types'
 import styled from 'styled-components/native'
 import posed, { Transition } from 'react-native-pose'
 
 import About from '#components/about'
-
-import { IMAGES } from '#utils/assets'
+import AboutButton from '#components/about-button'
 
 class Home extends PureComponent {
   state = {
     isShowingAbout: false,
-    isGettingAttention: false,
   }
 
   _handleToggleAbout = () => {
@@ -20,27 +17,7 @@ class Home extends PureComponent {
     }))
   }
 
-  componentDidMount() {
-    const interval = 5000
-    const attentionDuration = 1000
-
-    this._attentionInterval = setInterval(
-      () => {
-        this.setState({
-          isGettingAttention: true,
-        })
-        this._attentionStop = setTimeout(() => {
-          this.setState({
-            isGettingAttention: false,
-          })
-        }, attentionDuration);
-      },
-      interval,
-    )
-  }
-
   componentWillUnmount() {
-    clearInterval(this._attentionInterval)
     clearTimeout(this._attentionStop)
   }
 
@@ -52,19 +29,13 @@ class Home extends PureComponent {
 
     const {
       isShowingAbout,
-      isGettingAttention,
     } = this.state
 
     return (
       <Container style={style}>
-        <TouchableOpacity
+        <AboutButton
           onPress={this._handleToggleAbout}
-        >
-          <StyledAnimatedLogo
-            key="logo"
-            pose={isGettingAttention ? 'attention' : 'normal'}
-          />
-        </TouchableOpacity>
+        />
 
         <StyledAnimatedContent
           key="content"
@@ -150,14 +121,6 @@ const Container = styled.SafeAreaView`
   justify-content: center;
   align-items: center;
   background-color: ${({ theme: { background } }) => background};
-`
-
-const StyledAnimatedLogo = styled(AnimatedLogo).attrs(() => ({
-  source: IMAGES.logo,
-  resizeMode: 'contain',
-}))`
-  height: 75;
-  aspect-ratio: 1;
 `
 
 const StyledAnimatedContent = styled(AnimatedContent)`

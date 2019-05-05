@@ -2,7 +2,7 @@ import React from 'react'
 import { TouchableOpacity } from 'react-native'
 import PropTypes from 'prop-types'
 import styled from 'styled-components/native'
-import posed, { Transition } from 'react-native-pose'
+import posed from 'react-native-pose'
 
 import RF from 'react-native-responsive-fontsize'
 
@@ -20,20 +20,18 @@ const Introduction = ({
       {'\n\n'}
       {'Please share any quotes you like by pressing the buttons below your favorite quote!'}
     </Welcome>
+
     <TouchableOpacity
       onPress={finishIntroduction}
-    >
-      <Transition
-        animateOnMount={true}
+    > 
+      <StyledAnimatedButton
+        key="get-started"
       >
-        <StyledAnimatedButton
-          key="get-started"
-        >
-          <ButtonLabel>
-            {'Get Started'}
-          </ButtonLabel>
-        </StyledAnimatedButton>
-      </Transition>
+        <ButtonLabel>
+          {'Get Started'}
+        </ButtonLabel>
+      </StyledAnimatedButton>
+    
     </TouchableOpacity>
   </Container>
 )

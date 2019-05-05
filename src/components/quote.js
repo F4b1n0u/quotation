@@ -4,7 +4,7 @@ import { Linking, TouchableOpacity } from 'react-native'
 import { EvilIcons, AntDesign } from '@expo/vector-icons'
 import styled from 'styled-components/native'
 import RF from 'react-native-responsive-fontsize'
-import posed, { Transition } from 'react-native-pose'
+import posed from 'react-native-pose'
 
 import Curtain from '#components/curtain'
 
@@ -46,6 +46,7 @@ class Quote extends PureComponent {
     const timeToRead = details.length * 40
     const timeToReadAuthor = 1500
 
+    const FadeInAnimationAuthor = FadeInAnimation(delayDetails + timeToRead)
     const SocialLinks = StyledAnimatedSocialLinks(delayDetails + timeToRead + timeToReadAuthor)
 
     return (
@@ -60,46 +61,42 @@ class Quote extends PureComponent {
           </Details>
         </Curtain>
 
-        <Curtain
-          delay={delayDetails + timeToRead}
+        <FadeInAnimationAuthor
+          key="author-fade-in"
         >
           <StyledAuthor
             format={format}
           >
             {author}
           </StyledAuthor>
-        </Curtain>
+        </FadeInAnimationAuthor>
 
-        <Transition
+        <SocialLinks
           animateOnMount={true}
+          key='social-links'
         >
-          <SocialLinks
-            animateOnMount={true}
-            key='social-links'
+          <TouchableOpacity
+            onPress={this._handlePressSocialLink.bind(this, 'facebook')}
           >
-            <TouchableOpacity
-              onPress={this._handlePressSocialLink.bind(this, 'facebook')}
-            >
-              <FaceBookLink>
-                <FacebookIcon />
-              </FaceBookLink>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={this._handlePressSocialLink.bind(this, 'instagram')}
-            >
-              <InstagramLink>
-                <InstagramIcon />
-              </InstagramLink>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={this._handlePressSocialLink.bind(this, 'twitter')}
-            >
-              <TweeterLink>
-                <TwitterIcon />
-              </TweeterLink>
-            </TouchableOpacity>
-          </SocialLinks>
-        </Transition>
+            <FaceBookLink>
+              <FacebookIcon />
+            </FaceBookLink>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={this._handlePressSocialLink.bind(this, 'instagram')}
+          >
+            <InstagramLink>
+              <InstagramIcon />
+            </InstagramLink>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={this._handlePressSocialLink.bind(this, 'twitter')}
+          >
+            <TweeterLink>
+              <TwitterIcon />
+            </TweeterLink>
+          </TouchableOpacity>
+        </SocialLinks>
       </Container>
     )
   }
@@ -116,6 +113,17 @@ Quote.propTypes = {
 }
 
 // animated
+const FadeInAnimation = delay => posed.View({
+  enter: {
+    opacity: 1,
+    transition: {
+      delay,
+    }
+  },
+  exit: {
+    opacity: 0,
+  }
+})
 
 const AnimatedSocialLinks = delay => posed.View({
   enter: {
