@@ -13,8 +13,6 @@ import Home from '#components/home'
 class App extends PureComponent {
   constructor(props) {
     super(props)
-
-    this.wasAlreadyIntroduced = !!props.isIntroduced
   }
 
   componentWillMount() {
@@ -25,12 +23,22 @@ class App extends PureComponent {
     startLoading()
   }
 
+  componentWillUpdate({
+    isIntroduced: wasIntroduced
+  }) {
+    const { isIntroduced } = this.props
+
+    this.wasAlreadyIntroduced = wasIntroduced && isIntroduced
+  }
+
   render() {
     const {
       style,
       isLoaded,
       isIntroduced,
     } = this.props
+
+    console.log('wasAlreadyIntroduced', this.wasAlreadyIntroduced)
 
     return isLoaded
       ? (
