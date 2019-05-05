@@ -62,11 +62,7 @@ class Home extends PureComponent {
         >
           <StyledAnimatedLogo
             key="logo"
-            pose={
-              isGettingAttention
-                ? 'attention'
-                : 'normal'
-            }
+            pose={isGettingAttention ? 'attention' : 'normal'}
           />
         </TouchableOpacity>
 

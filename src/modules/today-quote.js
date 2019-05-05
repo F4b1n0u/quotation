@@ -1,5 +1,7 @@
 import moment from 'moment'
 
+import { AlertIOS } from 'react-native' 
+
 export const KEY = 'today-quote'
 export const NAME_SPACE = 'TODAY-QUOTE'
 
@@ -8,12 +10,17 @@ import {
 } from '#services/local-storage'
 
 import {
-  getTodayQuote
+  getQuote,
+  getTodayQuote,
 } from '#services/firebase'
 
 import {
   getRandom as getRandomFallbackQuote,
 } from '#utils/quotes'
+
+import {
+  IS_DEMO_MODE,
+} from '../../env'
 
 // State
 const initialState = {}
@@ -43,24 +50,52 @@ export const set = quote => ({
   payload: quote,
 })
 
+const promptQuote = async ({ alreadyTried }) => new Promise(resolve => {
+  const format = 'DDMMYYYY'
+  const text = `set date ${format} format`
+
+  AlertIOS.prompt(
+    alreadyTried
+      ? `no quote found !, try again\n${text}`
+      : text,
+    null,
+    date => {
+      const promptedDate = moment(date, format)
+        .startOf('day')
+        .unix()
+
+      resolve(promptedDate)
+    }
+  )
+})
+
 // Side effects
 export const retrieve = () => async dispatch => {
   const lastQuote = await getLastQuote()
   const today = moment().startOf('day')
-  const todayQuoteDate = today.format('YYYY-MM-DD')
+  let todayQuoteDate = today.format('YYYY-MM-DD')
   let finalTodayQuote = null
 
-  // the last display quote was today's
-  if (lastQuote.date === todayQuoteDate) {
-    finalTodayQuote = lastQuote
-  
-  } else {
-    const todayQuote = await getTodayQuote()
+  if (IS_DEMO_MODE) {
+    let alreadyTried = false
 
-    if (todayQuote) {
-      finalTodayQuote = todayQuote
+    while (!finalTodayQuote) {
+      todayQuoteDate = await promptQuote({ alreadyTried })
+      finalTodayQuote = await getQuote(todayQuoteDate)
+      alreadyTried = true
+    }
+  } else {
+    // the last display quote was today's
+    if (lastQuote.date === todayQuoteDate) {
+      finalTodayQuote = lastQuote
     } else {
-      finalTodayQuote = getRandomFallbackQuote()
+      const todayQuote = await getTodayQuote()
+
+      if (todayQuote) {
+        finalTodayQuote = todayQuote
+      } else {
+        finalTodayQuote = getRandomFallbackQuote()
+      }
     }
   }
 

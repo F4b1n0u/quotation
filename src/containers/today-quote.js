@@ -16,8 +16,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = () => ({})
 
-const mergeProps = (propsFromState) => ({
+const mergeProps = (propsFromState, dispatchProps, ownProps) => ({
   ...propsFromState,
+  ...dispatchProps,
+  ...ownProps,
   save: () => saveLastQuote(propsFromState.quote)
 })
 

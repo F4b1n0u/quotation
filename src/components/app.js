@@ -10,8 +10,13 @@ import TodayQuote from '#containers/today-quote'
 import SlashScreen from '#components/splash'
 import Home from '#components/home'
 
-
 class App extends PureComponent {
+  constructor(props) {
+    super(props)
+
+    this.wasAlreadyIntroduced = !!props.isIntroduced
+  }
+
   componentWillMount() {
     const {
       startLoading,
@@ -40,12 +45,14 @@ class App extends PureComponent {
               {
                 isIntroduced
                   ? (
-                    <TodayQuote />
+                    <StyledTodayQuote
+                      delay={this.wasAlreadyIntroduced ? 3000 : 1000}
+                    />
                   )
                   : (
                     <Introduction />
                   )
-              }
+              } 
             </StyledAnimatedHome>
           </Transition>
         </Container>
@@ -68,7 +75,6 @@ App.propTypes = {
 }
 
 // Animated
-
 const AnimatedHome = posed(Home)({
   enter: {
     top: '0%',
@@ -86,8 +92,6 @@ const AnimatedHome = posed(Home)({
     },
   },
 })
-
-
 
 // Styled components
 const Container = styled.View`
@@ -113,5 +117,9 @@ const StyledAnimatedHome = styled(AnimatedHome)`
   left: 0;
   right: 0;
 `
+
+const StyledTodayQuote = styled(TodayQuote)`
+  flex: 1;
+` 
 
 export default App 

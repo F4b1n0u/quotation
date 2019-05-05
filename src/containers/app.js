@@ -17,15 +17,17 @@ import {
 
 import App from '#components/app'
 
-
 import {
   manage as manageNotifications,
 } from '#utils/notifications'
 
-
 import {
   load as loadFonts,
 } from '#utils/fonts'
+
+import {
+  IS_DEMO_MODE,
+} from '../../env'
 
 const mapStateToProps = state => ({
   isLoaded: isLoaded(state),
@@ -36,7 +38,9 @@ const mapDispatchToProps = dispatch => ({
   startLoading: async () => {
     await dispatch(startLoad())
     await loadFonts()
-    await manageNotifications()
+    if (!IS_DEMO_MODE) {
+      await manageNotifications()
+    }
     await dispatch(verifyIntroduction())
     await dispatch(retrieveTodayQuote())
     await dispatch(endLoad())

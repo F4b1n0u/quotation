@@ -39,10 +39,10 @@ class Quote extends PureComponent {
         author,
         format,
       },
+      delay
     } = this.props
 
-
-    const delayDetails = 4000
+    const delayDetails = delay
     const timeToRead = details.length * 40
     const timeToReadAuthor = 1500
 
@@ -106,11 +106,13 @@ class Quote extends PureComponent {
 }
 
 Quote.defaultProps = {
+  delay: 0,
 }
 
 Quote.propTypes = {
   quote: PropTypes.object.isRequired,
   save: PropTypes.func.isRequired,
+  delay: PropTypes.number,
 }
 
 // animated
@@ -138,7 +140,6 @@ const AnimatedLink = posed.View({
 
 // styled
 const Container = styled.View`
-  flex: 1;
   flex-direction: column;
   align-items: center;
   justify-content: center;
