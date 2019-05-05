@@ -37,7 +37,7 @@ class AboutButton extends PureComponent {
 
   render() {
     const {
-      onPress
+      onPress,
     } = this.props
 
     const {

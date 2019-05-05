@@ -34,9 +34,6 @@ class Home extends PureComponent {
     return (
       <Container style={style}>
         <AboutButton
-          style={{
-            position: 'absolute',
-          }}
           onPress={this._handleToggleAbout}
         />
 
