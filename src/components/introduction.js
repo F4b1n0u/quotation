@@ -3,7 +3,6 @@ import { TouchableOpacity } from 'react-native'
 import PropTypes from 'prop-types'
 import styled from 'styled-components/native'
 import posed from 'react-native-pose'
-
 import RF from 'react-native-responsive-fontsize'
 
 const Introduction = ({
@@ -11,15 +10,17 @@ const Introduction = ({
   finishIntroduction,
 }) => (
   <Container style={style}>
-    <Welcome>
-      {'Welcome to “Quotation”!'}
-      {'\n\n'}
-      {'Each day from midnight, a new inspirational quote will appear!'}
-      {'\n\n'}
-      {'Click on the target in the top left hand corner to learn more about me.'}
-      {'\n\n'}
-      {'Please share any quotes you like by pressing the buttons below your favorite quote!'}
-    </Welcome>
+    <FadeInAnimation>
+      <Welcome>
+        {'Welcome to “Quotation”!'}
+        {'\n\n'}
+        {'Each day from midnight, a new inspirational quote will appear!'}
+        {'\n\n'}
+        {'Click on the target in the top left hand corner to learn more about me.'}
+        {'\n\n'}
+        {'Please share any quotes you like by pressing the buttons below your favorite quote!'}
+      </Welcome>
+    </FadeInAnimation>
 
     <TouchableOpacity
       onPress={finishIntroduction}
@@ -44,6 +45,18 @@ Introduction.propTypes = {
 }
 
 // animated
+const FadeInAnimation = posed.View({
+  enter: {
+    opacity: 1,
+    transition: {
+      delay: 4000,
+    }
+  },
+  exit: {
+    opacity: 0,
+  }
+})
+
 const AnimatedButton = posed.View({
   enter: {
     opacity: 1,

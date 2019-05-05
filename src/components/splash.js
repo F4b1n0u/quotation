@@ -1,26 +1,52 @@
 
 import React, { PureComponent } from 'react'
-import { LayoutAnimation } from 'react-native'
 import PropTypes from 'prop-types'
 import styled from 'styled-components/native'
+import posed, { Transition } from 'react-native-pose'
 
 import { IMAGES } from '#utils/assets'
 
 class Splash extends PureComponent {
-  componentDidUpdate() {
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.spring)
-  }
-
   render() {
     const {
       style,
     } = this.props
 
+    const FadeInStepTwo = FadeInAnimation(500)
+    const FadeInStepThree = FadeInAnimation(1500)
+
     return (
       <Container
         style={style}
       >
-        <SplashImage />
+        <SplashImage
+          source={IMAGES.splash}
+        />
+
+        <Transition
+          style={{
+            position: 'absolute',
+            height: '100%',
+            width: '100%',
+          }}
+          animateOnMount={true}
+        >
+          <FadeInStepTwo
+            key="fade-in-step-two"
+          >
+            <SplashImage
+              source={IMAGES['splashStepTwo']}
+            />
+          </FadeInStepTwo>
+
+          <FadeInStepThree
+            key="fade-in-step-three"
+          >
+            <SplashImage
+              source={IMAGES['splashStepThree']}
+            />
+          </FadeInStepThree>
+        </Transition>
       </Container>
     )
   }
@@ -35,17 +61,30 @@ Splash.propTypes = {
   isOpen: PropTypes.bool,
 }
 
+// animated
+const FadeInAnimation = (delay = 0) => posed.View({
+  enter: {
+    opacity: 1,
+    transition: {
+      delay,
+    }
+  },
+  exit: {
+    opacity: 0,
+  }
+})
+
+// styled
 const Container = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-
 `
 
 const SplashImage = styled.Image.attrs(() => ({
-  source: IMAGES.splash,
   resizeMode: 'contain',
 }))`
+  position: absolute;
   height: 100%;
   width: 100%;
 `

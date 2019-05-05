@@ -61,9 +61,7 @@ class Quote extends PureComponent {
           </Details>
         </Curtain>
 
-        <FadeInAnimationAuthor
-          key="author-fade-in"
-        >
+        <FadeInAnimationAuthor>
           <StyledAuthor
             format={format}
           >

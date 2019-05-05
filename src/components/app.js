@@ -38,8 +38,6 @@ class App extends PureComponent {
       isIntroduced,
     } = this.props
 
-    console.log('wasAlreadyIntroduced', this.wasAlreadyIntroduced)
-
     return isLoaded
       ? (
         <Container>
@@ -54,7 +52,7 @@ class App extends PureComponent {
                 isIntroduced
                   ? (
                     <StyledTodayQuote
-                      delay={this.wasAlreadyIntroduced ? 3000 : 1000}
+                      delay={this.wasAlreadyIntroduced ? 4000 : 2000}
                     />
                   )
                   : (
@@ -87,7 +85,7 @@ const AnimatedHome = posed(Home)({
   enter: {
     top: '0%',
     transition: {
-      delay: 2000,
+      delay: 3000,
       duration: 1000,
       type: 'tween',
     },
