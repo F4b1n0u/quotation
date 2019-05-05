@@ -52,7 +52,7 @@ class App extends PureComponent {
                 isIntroduced
                   ? (
                     <StyledTodayQuote
-                      delay={this.wasAlreadyIntroduced ? 4000 : 2000}
+                      delay={this.wasAlreadyIntroduced ? 4000 : 1000}
                     />
                   )
                   : (

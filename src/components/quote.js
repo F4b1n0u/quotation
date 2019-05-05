@@ -43,8 +43,8 @@ class Quote extends PureComponent {
     } = this.props
 
     const delayDetails = delay
-    const timeToRead = details.length * 40
-    const timeToReadAuthor = 1500
+    const timeToRead = details.length * 30
+    const timeToReadAuthor = 750
 
     const FadeInAnimationAuthor = FadeInAnimation(delayDetails + timeToRead)
     const SocialLinks = StyledAnimatedSocialLinks(delayDetails + timeToRead + timeToReadAuthor)

@@ -64,23 +64,6 @@ Home.propTypes = {
 }
 
 // animated
-const AnimatedLogo = posed.Image({
-  attention: {
-    scale: 1.1,
-    transition: {
-      type: 'spring',
-      stiffness: 300,
-      damping: 1,
-    },
-  },
-  normal: {
-    scale: 1,
-    transition: {
-      type: 'spring',
-    }
-  }
-})
-
 const AnimatedContent = posed.View({
   enter: {
     opacity: 1,
@@ -98,7 +81,7 @@ const AnimatedAbout = posed(About)({
     top: 17,
     bottom: 0,
     transition: {
-      duration: 1000,
+      duration: 500,
       type: 'tween',
       ease: 'easeInOut',
     },
@@ -107,7 +90,7 @@ const AnimatedAbout = posed(About)({
     top: '120%',
     bottom: '-120%',
     transition: {
-      duration: 500,
+      duration: 250,
       type: 'tween',
       ease: 'easeInOut',
     },
