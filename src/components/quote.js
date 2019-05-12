@@ -1,26 +1,41 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { Linking, TouchableOpacity } from 'react-native'
-import { EvilIcons, AntDesign } from '@expo/vector-icons'
 import styled from 'styled-components/native'
 import RF from 'react-native-responsive-fontsize'
-import posed from 'react-native-pose'
+import posed, { Transition } from 'react-native-pose'
 
 import Curtain from '#components/curtain'
-
-import { SHARE_LINKS } from '../../env'
+import ShareLink from '#components/share-link'
 
 class Quote extends PureComponent {
-  _handlePressSocialLink = async (to) => {
-    const {
-      app: appLink,
-      web: webLink,
-    } = SHARE_LINKS[to]
+  state = {
+    isShowingDetails: false,
+    isShowingAuthor: false,
+    isShowingLinks: false,
+  }
 
-    Linking.openURL(appLink)
-      .catch(() => {
-        Linking.openURL(webLink)
-      })
+  _timings = {}
+  _timeouts = {}
+
+  constructor(props) {
+    super(props)
+
+    const {
+      quote: {
+        details,
+      },
+      delay,
+    } = props
+
+    const delayDetails = delay
+    const timeToRead = details.length * 25
+    const timeToReadAuthor = 750
+
+    this._timings = {
+      isShowingDetails: delay,
+      isShowingAuthor: delayDetails + timeToRead,
+      isShowingLinks: delayDetails + timeToRead + timeToReadAuthor,
+    }
   }
 
   componentDidMount() {
@@ -29,6 +44,22 @@ class Quote extends PureComponent {
     } = this.props
 
     save()
+
+    Object.keys(this._timings)
+      .forEach(timing => {
+        this._timeouts[timing] = setTimeout(
+          () => {
+            this.setState({
+              [timing]: true,
+            })
+          },
+          this._timings[timing]
+        )
+      })
+  }
+
+  componentWillUnmount() {
+    Object.values(this._timeouts).forEach(clearTimeout)
   }
 
   render() {
@@ -39,20 +70,20 @@ class Quote extends PureComponent {
         author,
         format,
       },
-      delay
     } = this.props
 
-    const delayDetails = delay
-    const timeToRead = details.length * 25
-    const timeToReadAuthor = 750
+    const {
+      isShowingDetails,
+      isShowingAuthor,
+      isShowingLinks,
+    } = this.state
 
-    const FadeInAnimationAuthor = FadeInAnimation(delayDetails + timeToRead)
-    const SocialLinks = StyledAnimatedSocialLinks(delayDetails + timeToRead + timeToReadAuthor)
-
+    const authorPose = isShowingAuthor ? 'show' : 'hide'
+    
     return (
       <Container style={style}>
         <Curtain
-          delay={delayDetails}
+          isOpen={isShowingDetails}
         >
           <Details
             format={format}
@@ -61,40 +92,41 @@ class Quote extends PureComponent {
           </Details>
         </Curtain>
 
-        <FadeInAnimationAuthor>
+        <FadeInAnimation
+          pose={authorPose}
+        >
           <StyledAuthor
             format={format}
           >
             {author}
           </StyledAuthor>
-        </FadeInAnimationAuthor>
+        </FadeInAnimation>
 
-        <SocialLinks
+        <Transition
           animateOnMount={true}
-          key='social-links'
         >
-          <TouchableOpacity
-            onPress={this._handlePressSocialLink.bind(this, 'facebook')}
-          >
-            <FaceBookLink>
-              <FacebookIcon />
-            </FaceBookLink>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={this._handlePressSocialLink.bind(this, 'instagram')}
-          >
-            <InstagramLink>
-              <InstagramIcon />
-            </InstagramLink>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={this._handlePressSocialLink.bind(this, 'twitter')}
-          >
-            <TweeterLink>
-              <TwitterIcon />
-            </TweeterLink>
-          </TouchableOpacity>
-        </SocialLinks>
+          {isShowingLinks && (
+            <StyledAnimatedSocialLinks
+              key="links"
+            >
+              {
+                [
+                  'facebook',
+                  'instagram',
+                  'twitter',
+                ].map(media => (
+                  <BounceInAnimation
+                    key={media}
+                  >
+                    <ShareLink
+                      media={media}
+                    />
+                  </BounceInAnimation>
+                ))
+              }
+            </StyledAnimatedSocialLinks>
+          )}
+        </Transition>
       </Container>
     )
   }
@@ -111,27 +143,23 @@ Quote.propTypes = {
 }
 
 // animated
-const FadeInAnimation = delay => posed.View({
-  enter: {
+const FadeInAnimation = posed.View({
+  show: {
     opacity: 1,
-    transition: {
-      delay,
-    }
   },
-  exit: {
+  hide: {
     opacity: 0,
   }
 })
 
-const AnimatedSocialLinks = delay => posed.View({
+const AnimatedSocialLinks = posed.View({
   enter: {
     staggerChildren: 100,
-    delayChildren: delay,
   },
   exit: {}
 })
 
-const AnimatedLink = posed.View({
+const BounceInAnimation = posed.View({
   enter: {
     bottom: 0,
     transition: {
@@ -171,49 +199,13 @@ const StyledAuthor = styled.Text`
   height: ${({ format }) => RF(3.5 * (format && format.scale || 1)) * 1.5};
 `
 
-const StyledAnimatedSocialLinks = delay => styled(AnimatedSocialLinks(delay))`
+const StyledAnimatedSocialLinks = styled(AnimatedSocialLinks)`
   position: absolute;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
   width: 100%;
   bottom: 20;
-`
-
-const Link = styled(AnimatedLink)`
-  width: 60;
-  aspect-ratio: 1;
-  background-color: ${({ theme: { link } }) => link};
-  border-radius: 60;
-  justify-content: center;
-  align-items: center;
-`
-
-const FaceBookLink = styled(Link)``
-
-const InstagramLink = styled(Link)``
-
-const TweeterLink = styled(Link)``
-
-const FacebookIcon = styled(EvilIcons).attrs(() => ({
-  name: 'sc-facebook',
-  size: 40,
-}))`
-  color: ${({ theme: { background } }) => background};
-`
-
-const InstagramIcon = styled(AntDesign).attrs(() => ({
-  name: 'instagram',
-  size: 30,
-}))`
-  color: ${({ theme: { background } }) => background};
-`
-
-const TwitterIcon = styled(AntDesign).attrs(() => ({
-  name: 'twitter',
-  size: 30,
-}))`
-  color: ${({ theme: { background } }) => background};
 `
 
 export default Quote 

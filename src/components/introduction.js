@@ -5,6 +5,11 @@ import styled from 'styled-components/native'
 import posed from 'react-native-pose'
 import RF from 'react-native-responsive-fontsize'
 
+import {
+  INTRO_TEXT_DELAY,
+  INTRO_NEXT_BTN_DELAY,
+} from '#utils/timings'
+
 const Introduction = ({
   style,
   finishIntroduction,
@@ -49,7 +54,7 @@ const FadeInAnimation = posed.View({
   enter: {
     opacity: 1,
     transition: {
-      delay: 4000,
+      delay: INTRO_TEXT_DELAY,
     }
   },
   exit: {
@@ -61,7 +66,7 @@ const AnimatedButton = posed.View({
   enter: {
     opacity: 1,
     transition: {
-      delay: 7000,
+      delay: INTRO_NEXT_BTN_DELAY,
     }
   },
   exit: {

@@ -6,6 +6,11 @@ import posed, { Transition } from 'react-native-pose'
 import About from '#components/about'
 import AboutButton from '#components/about-button'
 
+import {
+  ABOUT_IN_DURATION,
+  ABOUT_OUT_DURATION,
+} from '#utils/timings'
+
 class Home extends PureComponent {
   state = {
     isShowingAbout: false,
@@ -37,11 +42,9 @@ class Home extends PureComponent {
           onPress={this._handleToggleAbout}
         />
 
-        <StyledAnimatedContent
-          key="content"
-        >
+        <StyledContent>
           {children}
-        </StyledAnimatedContent>
+        </StyledContent>
 
         <Transition
           animateOnMount={true}
@@ -64,24 +67,12 @@ Home.propTypes = {
 }
 
 // animated
-const AnimatedContent = posed.View({
-  enter: {
-    opacity: 1,
-    transition: {
-      delay: 3500,
-    }
-  },
-  exit: {
-    opacity: 0,
-  }
-})
-
 const AnimatedAbout = posed(About)({
   enter: {
     top: 17,
     bottom: 0,
     transition: {
-      duration: 500,
+      duration: ABOUT_IN_DURATION,
       type: 'tween',
       ease: 'easeInOut',
     },
@@ -90,7 +81,7 @@ const AnimatedAbout = posed(About)({
     top: '120%',
     bottom: '-120%',
     transition: {
-      duration: 250,
+      duration: ABOUT_OUT_DURATION,
       type: 'tween',
       ease: 'easeInOut',
     },
@@ -106,7 +97,7 @@ const Container = styled.SafeAreaView`
   background-color: ${({ theme: { background } }) => background};
 `
 
-const StyledAnimatedContent = styled(AnimatedContent)`
+const StyledContent = styled.View`
   flex: 1;
   flex-direction: column;
   justify-content: center;

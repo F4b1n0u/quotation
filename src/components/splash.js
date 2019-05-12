@@ -6,14 +6,19 @@ import posed, { Transition } from 'react-native-pose'
 
 import { IMAGES } from '#utils/assets'
 
+import {
+  SLASH_STEP_TWO,
+  SLASH_STEP_THREE,
+} from '#utils/timings'
+
 class Splash extends PureComponent {
   render() {
     const {
       style,
     } = this.props
 
-    const FadeInStepTwo = FadeInAnimation(500)
-    const FadeInStepThree = FadeInAnimation(1500)
+    const FadeInStepTwo = FadeInAnimation(SLASH_STEP_TWO)
+    const FadeInStepThree = FadeInAnimation(SLASH_STEP_THREE)
 
     return (
       <Container

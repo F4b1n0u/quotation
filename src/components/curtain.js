@@ -27,24 +27,24 @@ class Curtain extends PureComponent {
     }
   }
 
-  componentDidMount() {
-    const {
-      delay,
-    } = this.props
+  _open = () => {
+    this.setState({ isBorderOpen: true }, () => {
+      this._openBodyTimeout = setTimeout(
+        () => this.setState({ isBodyOpen: true }),
+        BORDER_DURATION
+      )
+    })
+  }
 
-    this._openBorderTimeout = setTimeout(
-      () => this.setState({ isBorderOpen: true }),
-      delay
-    )
+  componentDidUpdate({ isOpen: wasOpen }) {
+    const { isOpen } = this.props
 
-    this._openBodyTimeout = setTimeout(
-      () => this.setState({ isBodyOpen: true }),
-      delay + BORDER_DURATION
-    )
+    if (!wasOpen && isOpen) {
+      this._open()
+    }
   }
 
   componentWillUnmount() {
-    clearTimeout(this._openBorderTimeout)
     clearTimeout(this._openBodyTimeout)
   }
 
@@ -81,11 +81,11 @@ class Curtain extends PureComponent {
 }
 
 Curtain.defaultProps = {
-  delay: 0
+  isOpen: false,
 }
 
 Curtain.propTypes = {
-  delay: PropTypes.number,
+  isOpen: PropTypes.bool,
   children: PropTypes.node.isRequired,
 }
 
