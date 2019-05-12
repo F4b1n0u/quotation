@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+import { AppState } from 'react-native'
 import { AppLoading } from 'expo'
 import PropTypes from 'prop-types'
 import styled from 'styled-components/native'
@@ -10,9 +11,50 @@ import TodayQuote from '#containers/today-quote'
 import SlashScreen from '#components/splash'
 import Home from '#components/home'
 
+import {
+  TODAY_QUOTE_WITHOUT_INTRO,
+  TODAY_QUOTE_WITH_INTRO,
+  HOME_APPEARING_DURATION,
+  HOME_APPEARING_DELAY,
+} from '#utils/timings'
+
 class App extends PureComponent {
+  state = {
+    appState: AppState.currentState,
+    isInForeground: true,
+  };
+
   constructor(props) {
     super(props)
+  }
+
+  componentDidMount() {
+    AppState.addEventListener('change', this._handleAppStateChange);
+  }
+
+  componentWillUnmount() {
+    AppState.removeEventListener('change', this._handleAppStateChange);
+  }
+  
+  _handleAppStateChange = nextAppState => {
+    const {
+      startLoading,
+    } = this.props
+
+    const {
+      appState,
+    } = this.state
+
+    const isInForeground = appState.match(/inactive|background/) && nextAppState === 'active'
+    
+    if (isInForeground) {
+      startLoading()
+    }
+
+    this.setState({
+      appState: nextAppState,
+      isInForeground,
+    })
   }
 
   componentWillMount() {
@@ -38,29 +80,43 @@ class App extends PureComponent {
       isIntroduced,
     } = this.props
 
+    const {
+      isInForeground,
+    } = this.state
+
     return isLoaded
       ? (
         <Container>
-          <StyledSlashScreen />
-          <Transition
-            animateOnMount={true}
-          >
-            <StyledAnimatedHome
-              key="home"
-            >
-              {
-                isIntroduced
-                  ? (
-                    <StyledTodayQuote
-                      delay={this.wasAlreadyIntroduced ? 4000 : 250}
-                    />
-                  )
-                  : (
-                    <Introduction />
-                  )
-              } 
-            </StyledAnimatedHome>
-          </Transition>
+            {isInForeground && (
+              <>
+                <Transition
+                  animateOnMount={true}
+                >
+                  <StyledSlashScreen
+                    key="splash-screen"
+                  />
+                  <StyledAnimatedHome
+                    key="home"
+                  >
+                    {
+                      isIntroduced
+                        ? (
+                          <StyledTodayQuote
+                            delay={
+                              this.wasAlreadyIntroduced
+                                ? TODAY_QUOTE_WITHOUT_INTRO
+                                : TODAY_QUOTE_WITH_INTRO
+                            }
+                          />
+                        )
+                        : (
+                          <Introduction />
+                        )
+                    } 
+                  </StyledAnimatedHome>
+                </Transition>
+              </>
+            )}
         </Container>
       )
       : (
@@ -85,17 +141,13 @@ const AnimatedHome = posed(Home)({
   enter: {
     top: '0%',
     transition: {
-      delay: 3000,
-      duration: 1000,
+      delay: HOME_APPEARING_DELAY,
+      duration: HOME_APPEARING_DURATION,
       type: 'tween',
     },
   },
   exit: {
     top: '120%',
-    transition: {
-      duration: 500,
-      type: 'tween',
-    },
   },
 })
 
