@@ -4,6 +4,7 @@ export const FONTS = {
 }
 
 export const IMAGES = {
+  'letsgetyourlifetogether': require('./../../assets/images/letsgetyourlifetogether.png'),
   'logo': require('./../../assets/images/logo.png'),
   'splash': require('./../../assets/splash.png'),
   'splashStepOne': require('./../../assets/splash.png'),

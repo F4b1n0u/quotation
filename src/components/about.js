@@ -5,6 +5,9 @@ import { EvilIcons, AntDesign, Entypo } from '@expo/vector-icons'
 import styled from 'styled-components/native'
 import RF from 'react-native-responsive-fontsize'
 import { WebBrowser } from 'expo' 
+
+import { IMAGES } from '#utils/assets'
+
 import {
   ABOUT_LINKS,
   ABOUT_WEBSITE,
@@ -26,25 +29,21 @@ class About extends PureComponent {
 
     return (
       <Container style={style}>
-        <Wrapper>
-          <Title>
-            {'About me'}
-          </Title>
-
-          <Details>
-            {'Juliet is a life coach in the making, helping others to be the best YOU can be.'}
-            {'\n'}
-            {'\n'}
-            {'For more inspiring personal development material, contact Juliet ans subscribe to her personal development blog below:'}
-          </Details>
-        </Wrapper>
+        <SiteLogo />
+        
+        <Details>
+          {'Juliet is a life coach and author of the Let’s Get Your Life Together blog, helping you to be the best YOU you can be!'}
+          {'\n'}
+          {'\n'}
+          {'For more inspiring material to motivate you into action, visit the blog and get in touch below.'}
+        </Details>
 
         <TouchableOpacity
           onPress={this._handlePressWebsite}
         >
           <StyleButton>
             <ButtonLabel>
-              {'Let\'s get your life together'}
+              {'Take me to Let\'s Get Your Life Together'}
             </ButtonLabel>
           </StyleButton>
         </TouchableOpacity>
@@ -95,19 +94,18 @@ const Container = styled.View`
   align-items: center;
   justify-content: space-around;
   background-color: ${({ theme: { about } }) => about};
+  border-color: ${({ theme: { aboutBorder } }) => aboutBorder};
+  border-width: 2;
+  border-bottom-width: 0;
+
+  justify-content: space-around;
+  align-items: center;
 `
 
-const Wrapper = styled.View`
-  margin-horizontal: 10%;
-`
-
-const Title = styled.Text`
-  font-size: ${RF(4)};
-  fontWeight: bold;
-  text-align: center;
-
-  font-family: 'chivo';
-  margin-bottom: 20;
+const SiteLogo = styled.Image.attrs(() => ({
+  source: IMAGES.letsgetyourlifetogether,
+  resizeMode: 'contain',
+}))`
 `
 
 const Details = styled.Text`
@@ -115,6 +113,7 @@ const Details = styled.Text`
   text-align: justify;
   
   font-family: 'chivo';
+  margin-horizontal: 10%;
 `
 
 const StyleButton = styled.View`
@@ -122,7 +121,7 @@ const StyleButton = styled.View`
   align-items: center;
   padding-horizontal: 10;
   padding-vertical: 10;
-  margin-top: 20;
+  margin-top: 10;
   background-color: ${({ theme: { button } }) => button};
   border-radius: 5;
 `

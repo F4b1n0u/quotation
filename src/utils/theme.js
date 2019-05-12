@@ -4,5 +4,6 @@ export default {
   text: '#000000',
   quote: '#E97D00',
   button: '#E97D00',
-  about: '#CAD3D8',
+  about: '#FEFAF8',
+  aboutBorder: '#000000',
 }
