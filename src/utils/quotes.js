@@ -6,8 +6,8 @@ const todayQuoteDate = today.format('YYYY-MM-DD')
 const FALLBACK_QUOTES = [
   {
     date: todayQuoteDate,
-    author: 'Anthony Robbins',
-    details: 'The most important opinion a person will ever hold is the one that they hold about themselves',
+    author: 'Fabien Behier',
+    details: 'I love you !!!',
   },
   {
     date: todayQuoteDate,
