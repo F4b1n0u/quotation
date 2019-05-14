@@ -39,7 +39,8 @@ const mapDispatchToProps = dispatch => ({
     await dispatch(startLoad())
     await loadFonts()
     if (!IS_DEMO_MODE) {
-      await manageNotifications()
+      // no await !, cancellation of previous notification is too slow !
+      manageNotifications()
     }
     await dispatch(verifyIntroduction())
     await dispatch(retrieveTodayQuote())

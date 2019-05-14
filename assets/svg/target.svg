@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="595.28pt" version="1.1" xmlns="http://www.w3.org/2000/svg" height="841.89pt" viewBox="0 0 595.28 841.89" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs/>
+ <g id="Background">
+  <path style="fill:#e97c00; fill-rule:evenodd;stroke:#e97c00; stroke-width:1px; stroke-linecap:butt; stroke-linejoin:miter; stroke-dasharray:none;" d="M400 200 C400 310.461 310.461 400 200 400 C89.5431 400 0 310.461 0 200 C0 89.5431 89.5431 0 200 0 C310.461 0 400 89.5431 400 200 Z" transform="translate(99.2857, 99.2857)"/>
+  <path style="fill:#ffffff; fill-rule:evenodd;stroke:#ffffff; stroke-width:1px; stroke-linecap:butt; stroke-linejoin:miter; stroke-dasharray:none;" d="M260.714 130.357 C260.714 202.354 202.354 260.714 130.357 260.714 C58.3629 260.714 0 202.354 0 130.357 C0 58.3629 58.3629 0 130.357 0 C202.354 0 260.714 58.3629 260.714 130.357 Z" transform="translate(169.286, 169.286)"/>
+  <path style="fill:#e97c00; fill-rule:evenodd;stroke:#e97c00; stroke-width:1px; stroke-linecap:butt; stroke-linejoin:miter; stroke-dasharray:none;" d="M119.286 59.6429 C119.286 92.5839 92.5839 119.286 59.6429 119.286 C26.703 119.286 0 92.5839 0 59.6429 C0 26.703 26.703 0 59.6429 0 C92.5839 0 119.286 26.703 119.286 59.6429 Z" transform="translate(240, 240)"/>
+ </g>
+</svg>

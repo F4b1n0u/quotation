@@ -105,7 +105,7 @@ const AnimatedCurtainBorder = posed(LinearGradient)({
 
 const AnimatedCurtainBody = posed.View({
   open: {
-    width: BODY_WIDTH,
+    width: BODY_WIDTH * 1.1,
     transition: {
       duration: BODY_DURATION,
       ease: 'easeOut',

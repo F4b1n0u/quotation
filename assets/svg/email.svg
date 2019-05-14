@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="595.28pt" version="1.1" xmlns="http://www.w3.org/2000/svg" height="841.89pt" viewBox="0 0 595.28 841.89" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <clipPath id="Clip0">
+   <path d="M0 0 L244 0 L244 157 L0 157 L0 0 Z" transform="translate(173.5, 189)"/>
+  </clipPath>
+ </defs>
+ <g id="Background">
+  <path style="fill:#ffffff; fill-rule:evenodd;stroke:#161413; stroke-width:3; stroke-linecap:butt; stroke-linejoin:miter; stroke-dasharray:none;" d="M415 207.5 C415 322.103 322.103 415 207.5 415 C92.9009 415 0 322.103 0 207.5 C0 92.9009 92.9009 0 207.5 0 C322.103 0 415 92.9009 415 207.5 Z" transform="translate(92, 58)"/>
+  <g id="Group1" clip-path="url(#Clip0)">
+   <path style="fill:none;stroke:#161413; stroke-width:3; stroke-linecap:butt; stroke-linejoin:miter; stroke-dasharray:none;" d="M3.71921 14.4179 C7 9.625 13.5 3.98276 26.0304 2.32328 C38.5608 0.663793 51.866 2.32328 51.866 2.32328 L115.231 3.98276 L135.788 3.98276 C135.788 3.98276 197.5 0 209.167 2.32328 C220.834 4.64655 222.5 6.30603 228.5 11.6164 C234.5 16.9267 233.5 16.9267 235 29.2069 C236.5 41.4871 234.5 48.4569 235.611 67.4772 C236.722 86.4975 237.062 100.46 238 107.534 C238.938 114.609 241 118.155 238.5 129.772 C236 141.388 236.5 141.388 231 144.707 C225.5 148.026 219.5 148.69 213 149.353 C206.5 150.017 205 151.345 196.371 151.677 C187.742 152.009 148.5 151.677 121.121 151.677 C93.7412 151.677 43.5 154 29.5 152.009 C15.5 150.017 16 149.685 12 145.039 C8 140.392 6.5 131.099 6 121.474 C5.5 111.849 7 91.9353 5.59147 79.1108 C4.18293 66.2863 5 72.3534 3 58.4138 C1 44.4741 0 40.8233 0.5 31.8621 C1 22.9009 0.438429 19.2109 3.71921 14.4179 Z" transform="translate(175, 190.5)"/>
+   <path style="fill:none;stroke:#161413; stroke-width:3; stroke-linecap:butt; stroke-linejoin:miter; stroke-dasharray:none;" id="Line2223" d="M0 0 C0 0 18.5 13 29 20.5 C39.5 28 40 28.5 48.5 35 C57 41.5 65.5 46 78.5 54 C91.5 62 98 76.5 117 75 C136 73.5 139 65.5 154 53.5 C169 41.5 178 33 198 23 C218 13 233 4 233 4 " transform="translate(177, 211)"/>
+  </g>
+ </g>
+</svg>

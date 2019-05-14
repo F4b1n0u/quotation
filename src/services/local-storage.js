@@ -1,28 +1,61 @@
 import { AsyncStorage } from "react-native"
+import moment from 'moment'
 
-const KEYS = {
-  isIntroduced: '@quotation:is-introduced',
-  lastQuote: '@quotation:is-last-quote',
-  notificationId: '@quotation:notification-id',
+import {
+  LOCAL_STATE_VERSION,
+  LOCAL_STATE_UPGRADE_STRATEGY,
+} from '../../env'
+
+const STATE_KEY = '@quotation:local-state-json'
+const STATE_DEFAULT = {
+  version: moment().unix(), // 14 May 2019
+  isIntroduced: false,
+  lastQuote: {},
+  notificationIds: [],
 }
 
-const VALUES = {
-  isIntroduced: 'true',
-  lastQuote: '{}',
-  notificationId: '',
+const sanitize = async () => {
+  const currentLocalStateVersion = await get('version')
+
+  const needUpgrade = LOCAL_STATE_VERSION > currentLocalStateVersion
+  
+  if (needUpgrade) {
+    switch(LOCAL_STATE_UPGRADE_STRATEGY) {
+      case 'CLEAR':
+        await AsyncStorage.clear()
+        await AsyncStorage.setItem(STATE_KEY, JSON.stringify(STATE_DEFAULT))
+    }
+  }
 }
 
-const get = fieldName => AsyncStorage.getItem(KEYS[fieldName])
-const set = async (fieldName, fieldValue) => AsyncStorage.setItem(KEYS[fieldName], fieldValue)
+const getAllState = () => AsyncStorage
+  .getItem(STATE_KEY)
+  .then(json => JSON.parse(json))
+
+const get = async (fieldName) => {
+  const localStorage = await getAllState()
+  return (localStorage || STATE_DEFAULT)[fieldName]
+}
+
+const set = async (fieldName, fieldValue) => {
+  let localStorage = await getAllState()
+  
+  localStorage = {
+    ...STATE_DEFAULT,
+    ...localStorage,
+    [fieldName]: fieldValue,
+  }
+
+  return AsyncStorage.setItem(STATE_KEY, JSON.stringify(localStorage))
+}
 
 export const checkIntroduction = get.bind(this, 'isIntroduced')
-export const saveIntroduction = set.bind(this, 'isIntroduced', VALUES.isIntroduced)
+export const saveIntroduction = set.bind(this, 'isIntroduced', true)
 
-export const getLastQuote = () => AsyncStorage
-  .getItem(KEYS.lastQuote)
-  .then(lastQuote => JSON.parse(lastQuote || VALUES['lastQuote']))
+export const getLastQuote = get.bind(this, 'lastQuote')
+export const saveLastQuote = set.bind(this, 'lastQuote')
 
-export const saveLastQuote = quote => AsyncStorage.setItem(KEYS.lastQuote, JSON.stringify(quote))
+export const getNotificationIds = get.bind(this, 'notificationIds')
+export const saveNotificationIds = set.bind(this, 'notificationIds')
 
-export const getNotificationId = get.bind(this, 'notificationId')
-export const saveNotificationId = set.bind(this, 'notificationId')
+sanitize()

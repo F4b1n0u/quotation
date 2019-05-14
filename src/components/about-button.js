@@ -38,6 +38,7 @@ class AboutButton extends PureComponent {
   render() {
     const {
       onPress,
+      style,
     } = this.props
 
     const {
@@ -45,14 +46,15 @@ class AboutButton extends PureComponent {
     } = this.state
 
     return (
-      <TouchableOpacity
+      <Container
+        style={style}
         onPress={onPress}
       >
         <StyledAnimatedLogo
           key="logo"
           pose={isGettingAttention ? 'attention' : 'normal'}
         />
-      </TouchableOpacity>
+      </Container>
     )    
   }
 }
@@ -82,11 +84,15 @@ const AnimatedLogo = posed.Image({
 })
 
 // STYLED
+const Container = styled(TouchableOpacity)`
+  padding-top: 12.5;
+`
+
 const StyledAnimatedLogo = styled(AnimatedLogo).attrs(() => ({
   source: IMAGES.logo,
   resizeMode: 'contain',
 }))`
-  height: 75;
+  height: 50;
   aspect-ratio: 1;
 `
 

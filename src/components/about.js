@@ -43,8 +43,11 @@ class About extends PureComponent {
         >
           <StyleButton>
             <ButtonLabel>
-              {'Take me to Let\'s Get Your Life Together'}
+              {'Take me to'}
             </ButtonLabel>
+            <ButtonLabelSite>
+            {'Let\'s Get Your Life Together'}
+            </ButtonLabelSite>
           </StyleButton>
         </TouchableOpacity>
         
@@ -100,17 +103,19 @@ const Container = styled.View`
 
   justify-content: space-around;
   align-items: center;
+  padding-vertical: 20;
 `
 
 const SiteLogo = styled.Image.attrs(() => ({
   source: IMAGES.letsgetyourlifetogether,
   resizeMode: 'contain',
 }))`
+  height: 20%;
 `
 
 const Details = styled.Text`
   font-size: ${RF(3)};
-  text-align: justify;
+  text-align: center;
   
   font-family: 'chivo';
   margin-horizontal: 10%;
@@ -124,12 +129,21 @@ const StyleButton = styled.View`
   margin-top: 10;
   background-color: ${({ theme: { button } }) => button};
   border-radius: 5;
+  flex-direction: column;
 `
 
-const ButtonLabel = styled.Text`
+const ButtonLabelText = styled.Text`
   color: ${({ theme: { background } }) => background};
-  font-size: ${RF(3.5)};
   text-align: center;
+  font-family: 'amatic';
+`
+
+const ButtonLabel = styled(ButtonLabelText)`
+  font-size: ${RF(3.5)};
+`
+
+const ButtonLabelSite = styled(ButtonLabelText)`
+  font-size: ${RF(5)};
 `
 
 const SocialLinks = styled.View`

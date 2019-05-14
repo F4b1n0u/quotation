@@ -68,6 +68,7 @@ class Quote extends PureComponent {
       quote: {
         details,
         author,
+        date,
         format,
       },
     } = this.props
@@ -89,6 +90,8 @@ class Quote extends PureComponent {
             format={format}
           >
             {details}
+            {' - '}
+            {date}
           </Details>
         </Curtain>
 
@@ -186,8 +189,7 @@ const StyledText = styled.Text`
 
 const Details = styled(StyledText)`
   font-size: ${({ format }) => RF(5 * (format && format.scale || 1))};
-  margin-left: 20;
-  margin-right: 20;
+  margin-horizontal: ${RF(5)};
   font-family: 'amatic';
   letter-spacing: ${({ format }) => (format && format.letterSpacing || 5)};
 `
