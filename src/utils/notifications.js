@@ -11,7 +11,10 @@ import {
   getQuote,
 } from '#services/firebase'
 
-const NOTIFICATION_DURATION = 30
+import {
+  QUOTE_TEASER_DURATION,
+  NOTIFICATION_HOUR_24,
+} from '../../env'
 
 export const manage = async () => {
   let {
@@ -36,7 +39,7 @@ export const manage = async () => {
       .startOf('day')
       .add(1, 'days')
 
-    notificationIds = await [...Array(NOTIFICATION_DURATION).keys()]
+    notificationIds = await [...Array(QUOTE_TEASER_DURATION).keys()]
       .reduce(
         async (acc, dayNumber) => {
           let notificationIds = await acc
@@ -45,7 +48,7 @@ export const manage = async () => {
             .clone()
             .add(dayNumber, 'days')
           const id = date.unix()
-          const time = date.hour(7).valueOf()
+          const time = date.hour(NOTIFICATION_HOUR_24).valueOf()
 
           const quote = await getQuote(id)
 
