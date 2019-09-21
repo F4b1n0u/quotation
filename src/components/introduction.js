@@ -34,7 +34,7 @@ const Introduction = ({
         key="get-started"
       >
         <ButtonLabel>
-          {'Get Started'}
+          {' Let\'s get started!'}
         </ButtonLabel>
       </StyledAnimatedButton>
     
@@ -96,8 +96,8 @@ const Welcome = styled.Text`
 const StyledAnimatedButton = styled(AnimatedButton)`
   justify-content: center;
   align-items: center;
-  padding-horizontal: 10;
-  padding-vertical: 10;
+  padding-horizontal: 30;
+  padding-vertical: 15;
   margin-top: 20;
   background-color: ${({ theme: { button } }) => button};
   border-radius: 5;
@@ -105,7 +105,9 @@ const StyledAnimatedButton = styled(AnimatedButton)`
 
 const ButtonLabel = styled.Text`
   color: ${({ theme: { background } }) => background};
-  font-size: ${RF(3.5)};
+  font-size: ${RF(3)};
+  font-family: 'open-sans';
+  letter-spacing: 3;
 `
 
 export default Introduction 

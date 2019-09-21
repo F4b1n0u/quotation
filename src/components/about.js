@@ -1,16 +1,14 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import { Linking, TouchableOpacity } from 'react-native'
 import { EvilIcons, AntDesign, Entypo } from '@expo/vector-icons'
 import styled from 'styled-components/native'
 import RF from 'react-native-responsive-fontsize'
-import { WebBrowser } from 'expo' 
+import { BlurView } from 'expo'
 
 import { IMAGES } from '#utils/assets'
 
 import {
-  ABOUT_LINKS,
-  ABOUT_WEBSITE,
+  ABOUT_LINKS
 } from '../../env'
 
 class About extends PureComponent {
@@ -19,8 +17,6 @@ class About extends PureComponent {
     .catch(() => {
       Linking.openURL(ABOUT_LINKS[to].web)
     })
-
-  _handlePressWebsite = () => WebBrowser.openBrowserAsync(ABOUT_WEBSITE)
 
   render() {
     const {
@@ -34,23 +30,9 @@ class About extends PureComponent {
         <Details>
           {'Juliet is a life coach and author of the Let’s Get Your Life Together blog, helping you to be the best YOU you can be!'}
           {'\n'}
-          {'\n'}
           {'For more inspiring material to motivate you into action, visit the blog and get in touch below.'}
         </Details>
 
-        <TouchableOpacity
-          onPress={this._handlePressWebsite}
-        >
-          <StyleButton>
-            <ButtonLabel>
-              {'Take me to'}
-            </ButtonLabel>
-            <ButtonLabelSite>
-            {'Let\'s Get Your Life Together'}
-            </ButtonLabelSite>
-          </StyleButton>
-        </TouchableOpacity>
-        
         <SocialLinks
           animateOnMount={true}
           key='social-links'
@@ -91,15 +73,15 @@ About.propTypes = {
 // animated
 
 // styled
-const Container = styled.View`
+const Container = styled(BlurView).attrs({
+   tint: 'light',
+   intensity: 90
+})`
   flex: 1;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
   background-color: ${({ theme: { about } }) => about};
-  border-color: ${({ theme: { aboutBorder } }) => aboutBorder};
-  border-width: 2;
-  border-bottom-width: 0;
 
   justify-content: space-around;
   align-items: center;
@@ -124,26 +106,12 @@ const Details = styled.Text`
 const StyleButton = styled.View`
   justify-content: center;
   align-items: center;
-  padding-horizontal: 10;
-  padding-vertical: 10;
+  padding-horizontal: 30;
+  padding-vertical: 15;
   margin-top: 10;
   background-color: ${({ theme: { button } }) => button};
   border-radius: 5;
   flex-direction: column;
-`
-
-const ButtonLabelText = styled.Text`
-  color: ${({ theme: { background } }) => background};
-  text-align: center;
-  font-family: 'amatic';
-`
-
-const ButtonLabel = styled(ButtonLabelText)`
-  font-size: ${RF(3.5)};
-`
-
-const ButtonLabelSite = styled(ButtonLabelText)`
-  font-size: ${RF(5)};
 `
 
 const SocialLinks = styled.View`

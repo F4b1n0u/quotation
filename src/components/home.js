@@ -69,7 +69,7 @@ Home.propTypes = {
 // animated
 const AnimatedAbout = posed(About)({
   enter: {
-    top: 17,
+    top: 20,
     bottom: 0,
     transition: {
       duration: ABOUT_IN_DURATION,

@@ -2,16 +2,14 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components/native'
 import RF from 'react-native-responsive-fontsize'
-import posed, { Transition } from 'react-native-pose'
+import posed from 'react-native-pose'
 
 import Curtain from '#components/curtain'
-import ShareLink from '#components/share-link'
 
 class Quote extends PureComponent {
   state = {
     isShowingDetails: false,
     isShowingAuthor: false,
-    isShowingLinks: false,
   }
 
   _timings = {}
@@ -34,7 +32,6 @@ class Quote extends PureComponent {
     this._timings = {
       isShowingDetails: delay,
       isShowingAuthor: delayDetails + timeToRead,
-      isShowingLinks: delayDetails + timeToRead + timeToReadAuthor,
     }
   }
 
@@ -76,7 +73,6 @@ class Quote extends PureComponent {
     const {
       isShowingDetails,
       isShowingAuthor,
-      isShowingLinks,
     } = this.state
 
     const authorPose = isShowingAuthor ? 'show' : 'hide'
@@ -90,8 +86,6 @@ class Quote extends PureComponent {
             format={format}
           >
             {details}
-            {' - '}
-            {date}
           </Details>
         </Curtain>
 
@@ -104,32 +98,6 @@ class Quote extends PureComponent {
             {author}
           </StyledAuthor>
         </FadeInAnimation>
-
-        <Transition
-          animateOnMount={true}
-        >
-          {isShowingLinks && (
-            <StyledAnimatedSocialLinks
-              key="links"
-            >
-              {
-                [
-                  'facebook',
-                  'instagram',
-                  'twitter',
-                ].map(media => (
-                  <BounceInAnimation
-                    key={media}
-                  >
-                    <ShareLink
-                      media={media}
-                    />
-                  </BounceInAnimation>
-                ))
-              }
-            </StyledAnimatedSocialLinks>
-          )}
-        </Transition>
       </Container>
     )
   }
@@ -155,26 +123,6 @@ const FadeInAnimation = posed.View({
   }
 })
 
-const AnimatedSocialLinks = posed.View({
-  enter: {
-    staggerChildren: 100,
-  },
-  exit: {}
-})
-
-const BounceInAnimation = posed.View({
-  enter: {
-    bottom: 0,
-    transition: {
-      type: 'spring',
-      stiffness: 100,
-    }
-  },
-  exit: {
-    bottom: -200,
-  }
-})
-
 // styled
 const Container = styled.View`
   flex-direction: column;
@@ -190,8 +138,8 @@ const StyledText = styled.Text`
 const Details = styled(StyledText)`
   font-size: ${({ format }) => RF(5 * (format && format.scale || 1))};
   margin-horizontal: ${RF(5)};
-  font-family: 'amatic';
-  letter-spacing: ${({ format }) => (format && format.letterSpacing || 5)};
+  font-family: 'open-sans';
+  letter-spacing: ${({ format }) => (format && format.letterSpacing || 2)};
 `
 
 const StyledAuthor = styled.Text`
@@ -199,15 +147,6 @@ const StyledAuthor = styled.Text`
   font-size: ${({ format }) => RF(3.5 * (format && format.scale || 1))};
   font-family: 'chivo';
   height: ${({ format }) => RF(3.5 * (format && format.scale || 1)) * 1.5};
-`
-
-const StyledAnimatedSocialLinks = styled(AnimatedSocialLinks)`
-  position: absolute;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  width: 100%;
-  bottom: 20;
 `
 
 export default Quote 

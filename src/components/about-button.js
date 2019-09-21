@@ -92,7 +92,7 @@ const StyledAnimatedLogo = styled(AnimatedLogo).attrs(() => ({
   source: IMAGES.logo,
   resizeMode: 'contain',
 }))`
-  height: 50;
+  height: ${50 * 1.4};
   aspect-ratio: 1;
 `
 

@@ -1,9 +1,9 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 17890,
-  "expoServerNgrokUrl": "https://av-2dc.f4b1n0u.quotation.exp.direct",
-  "packagerNgrokUrl": "https://packager.av-2dc.f4b1n0u.quotation.exp.direct",
-  "ngrokPid": 17911
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": "https://ya-hc6.f4b1n0u.quotation.exp.direct",
+  "packagerNgrokUrl": "https://packager.ya-hc6.f4b1n0u.quotation.exp.direct",
+  "ngrokPid": 8021
 }
