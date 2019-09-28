@@ -3,7 +3,7 @@ import { Linking, TouchableOpacity } from 'react-native'
 import { EvilIcons, AntDesign, Entypo } from '@expo/vector-icons'
 import styled from 'styled-components/native'
 import RF from 'react-native-responsive-fontsize'
-import { BlurView } from 'expo'
+import { BlurView } from 'expo-blur';
 
 import { IMAGES } from '#utils/assets'
 

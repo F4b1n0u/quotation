@@ -6,17 +6,9 @@ export const KEY = 'today-quote'
 export const NAME_SPACE = 'TODAY-QUOTE'
 
 import {
-  getLastQuote,
-} from '#services/local-storage'
-
-import {
   getQuote,
   getTodayQuote,
-} from '#services/firebase'
-
-import {
-  getRandom as getRandomFallbackQuote,
-} from '#utils/quotes'
+} from '#services/local-file'
 
 import {
   IS_DEMO_MODE,
@@ -71,35 +63,21 @@ const promptQuote = async ({ alreadyTried }) => new Promise(resolve => {
 
 // Side effects
 export const retrieve = () => async dispatch => {
-  const lastQuote = await getLastQuote()
-  const today = moment().startOf('day')
-  let todayQuoteDate = today.format('YYYY-MM-DD')
-  let finalTodayQuote = null
-
+  let todayQuote
+  
   if (IS_DEMO_MODE) {
     let alreadyTried = false
 
     while (!finalTodayQuote) {
-      todayQuoteDate = await promptQuote({ alreadyTried })
-      finalTodayQuote = await getQuote(todayQuoteDate)
+      const todayQuoteDate = await promptQuote({ alreadyTried })
+      todayQuote = await getQuote(todayQuoteDate)
       alreadyTried = true
     }
   } else {
-    // the last display quote was today's
-    if (lastQuote.date === todayQuoteDate) {
-      finalTodayQuote = lastQuote
-    } else {
-      const todayQuote = await getTodayQuote()
-
-      if (todayQuote) {
-        finalTodayQuote = todayQuote
-      } else {
-        finalTodayQuote = getRandomFallbackQuote()
-      }
-    }
+    todayQuote = await getTodayQuote()
   }
 
-  dispatch(set(finalTodayQuote))
+  dispatch(set(todayQuote))
 }
 
 // Selectors

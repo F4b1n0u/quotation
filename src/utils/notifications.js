@@ -1,5 +1,6 @@
 import moment from 'moment'
-import { Notifications, Permissions } from 'expo'
+import { Notifications } from 'expo'
+import * as Permissions from 'expo-permissions';
 import { isEmpty } from 'lodash'
 
 import {
@@ -21,7 +22,7 @@ export const manage = async () => {
     permissions: {
       notifications: notificationPermissions,
     }
-  } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+  } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
 
   const willShowNotifications = Object
     .values(notificationPermissions)

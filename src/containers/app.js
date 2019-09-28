@@ -12,7 +12,7 @@ import {
 } from '#modules/user'
 
 import {
-  retrieve as retrieveTodayQuote,
+retrieve as retrieveTodayQuote,
 } from '#modules/today-quote'
 
 import App from '#components/app'

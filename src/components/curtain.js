@@ -3,7 +3,7 @@ import { MaskedViewIOS, Dimensions } from 'react-native'
 import PropTypes from 'prop-types'
 import styled from 'styled-components/native'
 import posed from 'react-native-pose'
-import { LinearGradient } from 'expo'
+import { LinearGradient } from 'expo-linear-gradient'
 
 const { width: WINDOW_WIDTH } = Dimensions.get('window')
 
